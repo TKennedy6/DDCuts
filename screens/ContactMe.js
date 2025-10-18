@@ -2,18 +2,10 @@ import { ScrollView } from "react-native-gesture-handler"
 import { Card, Text, Button, Icon } from "react-native-elements"
 import * as Animatable from 'react-native-animatable';
 import * as MailComposer from 'expo-mail-composer';
-import { View, ImageBackground } from "react-native";
+import { View, ImageBackground, StyleSheet } from "react-native";
 import counterSetUp from '../assets/counterSetUp.jpeg';
 
 const ContactScreen = () => {
-
-  const sendMail = () => {
-    MailComposer.composeAsync({
-      recipients: ['campsites@nucamp.co'],
-      subject: 'Inquiry',
-      body: 'To whom it may concern'
-    });
-  };
 
   return (
     <>
@@ -22,19 +14,28 @@ const ContactScreen = () => {
               style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
               resizeMode="cover"
             >
-            <ScrollView>
+            <ScrollView contentContainerStyle={styles.scrollContainer}>
       <Animatable.View animation='fadeInDown' duration={2000} delay={1000}>
-      <Card containerStyle={{margin: 20, backgroundColor: "rgba(210, 52, 155, 0.8)" }}>
-        <Card.Title>Get Ahold of DD</Card.Title>
+      <Card containerStyle={styles.Card}>
+        <Card.Title style={styles.Text}>Get Ahold of DD</Card.Title>
         <Card.Divider />
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <View style={styles.contactInfo}>
             <Icon
         name="instagram"
         type="font-awesome"
-        color='#c13584'
+        color='#fff'
         size={40}
-        marginRight={10}/>
-        <Text style={{fontSize: 24}}>@Phadeguru</Text>
+        style={styles.Icon}/>
+        <Text style={styles.Text}>@Phadeguru</Text>
+        </View>
+        <View style={styles.contactInfo}>
+        <Icon
+        name="phone"
+        type="font-awesome"
+        color='#fff'
+        size={40}
+        style={styles.Icon}/>
+        <Text style={styles.Text}>(702) 555-5555</Text>
         </View>
         
       </Card>
@@ -44,5 +45,32 @@ const ContactScreen = () => {
     </>
   )
 }
+
+const styles = StyleSheet.create({
+    scrollContainer: {
+        flexGrow: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    Card: {
+        width: '100%',
+        backgroundColor: 'rgba(17, 5, 5, 0.5)',
+        borderRadius: 15,
+        padding: 60
+    },
+    contactInfo: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginVertical: 10,
+    },
+    Icon: {
+        marginRight: 10,
+    },
+    Text: {
+        color: '#fff',
+        opacity: 1,
+        fontSize: 30
+    }
+})
 
 export default ContactScreen

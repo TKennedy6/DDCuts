@@ -10,6 +10,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import Biography from "./Biography";
 import Location from "./Location";
 import ContactMe from "./ContactMe";
+import { ScrollView } from 'react-native-gesture-handler';
+import * as Animatable from 'react-native-animatable';
 
 const Drawer = createDrawerNavigator();
 
@@ -82,12 +84,14 @@ const HomeContent = () => {
       style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
       resizeMode="cover"
     >
-      <Card containerStyle={{ backgroundColor: "rgba(210, 52, 155, 0.8)" }}>
-        <Text>Did this do anything?</Text>
-      </Card>
-       <Card containerStyle={{ backgroundColor: "rgba(210, 52, 155, 0.8)" }}>
-        <Text>Did this do anything?</Text>
-      </Card>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+                      <Animatable.View animation='fadeInDown' duration={2000} delay={1000}>
+      <Card containerStyle={styles.Card}>
+              <Card.Title style={styles.headerText}>Cuts by DD</Card.Title>
+              </Card>
+              </Animatable.View>
+              </ScrollView>
+              
     </ImageBackground>
     )
     }
@@ -101,7 +105,7 @@ const Main = () => {
       <Drawer.Navigator
         initialRouteName="HomeNav"
         screenOptions={{
-          drawerStyle: { backgroundColor: "#cec8ff" },
+          drawerStyle: { backgroundColor: '#fff' },
           headerShown: true,
           
         }}
@@ -128,6 +132,13 @@ const Main = () => {
           options={{
             title: "About DD",
             headerShown: true,
+            headerLeft: () => (
+                <Icon
+                  name="home"
+                  type="font-awesome-5"
+                  iconStyle={styles.stackIcon}
+                />
+            )
           }}/>
           <Drawer.Screen
           name="LocationNav"
@@ -154,6 +165,35 @@ const styles = StyleSheet.create({
     color: "#000",
     fontSize: 24,
   },
+  scrollContainer: {
+        flexGrow: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    Card: {
+        width: '90%',
+        backgroundColor: 'rgba(17, 5, 5, 0.5)',
+        borderRadius: 15,
+        padding: 50
+    },
+    contactInfo: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginVertical: 10,
+    },
+    Icon: {
+        marginRight: 10,
+    },
+    headerText: {
+        color: '#fff',
+        opacity: 1,
+        fontSize: 30
+    },
+     Text: {
+        color: '#fff',
+        opacity: 1,
+        fontSize: 20
+    }
 })
 
 export default Main;
